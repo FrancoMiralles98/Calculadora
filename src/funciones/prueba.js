@@ -37,8 +37,8 @@ console.timeEnd()
 
     let fixedEcc = (ecc,grado,symbol)=>{
         if(grado = 2 && symbol=='*'){
-            let primerIndice = ecc.indexOf('+',ecc.indexOf('*')) > -1?ecc.indexOf('+',ecc.indexOf('*')) : ecc.indexOf('-',ecc.indexOf('*')) >-1? ecc.indexOf('-',ecc.indexOf('*')) : null
-            let segundoIndice = ecc.split('').reverse().join('').indexOf('+',ecc.indexOf('*')) > -1?ecc.split('').reverse().join('').indexOf('+',ecc.indexOf('*')) : ecc.split('').reverse().join('').indexOf('-',ecc.indexOf('*')) >-1? ecc.split('').reverse().join('').indexOf('-',ecc.indexOf('*')) : null
+            let primerIndice = ecc.indexOf('+',ecc.indexOf('*')) > -1?ecc.indexOf('+',ecc.indexOf('*')) : ecc.indexOf('-',ecc.indexOf('*')) >-1? ecc.indexOf('-',ecc.indexOf('*')) : ecc.length
+            let segundoIndice = ecc.split('').lastIndexOf('+',primerIndice)
         console.log(primerIndice,segundoIndice);
         }
     }
@@ -57,4 +57,4 @@ let findParentesis = (str)=>{
 
 
 //console.log(cerebro('(1+1*2)*(2*2)'))
-console.log(fixedEcc('1+1*2',2,'*'))
+console.log(fixedEcc('1+1+1*2',2,'*'))
