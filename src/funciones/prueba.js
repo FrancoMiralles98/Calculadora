@@ -1,9 +1,9 @@
-console.time()
+console.time('calculadora')
 
 
 const cerebro = (ecc) =>{
     let equation = ecc.split('')
-for (let index = 0; index < 4; index++) {
+for (let index = 0; index < Infinity; index++) {
 
     let peticion =  parentesis(equation)
 
@@ -15,7 +15,8 @@ for (let index = 0; index < 4; index++) {
 
     if(/[+ - * /]/.test(equation) == false){
         
-        return parseInt(equation.join(''))}
+        return parseFloat(equation.join(''))
+    }
     
 
 
@@ -32,18 +33,22 @@ for (let index = 0; index < 4; index++) {
     }
     
     if(peticion.parentesis1 == -1){
-        let result = operations(equation)
-    }
-
-    
-    
-
+        let result = operations({numbers:equation})
+        let sizeSplice = result.index1 + result.index2 +1
+        let searchSecondOrden = equation.indexOf(`${result.simbolOrigin}`)
+        equation.splice(searchSecondOrden- result.index1,sizeSplice,result.finalResult)
+        equation = equation.flat()
+        
+    }}
 }
-  
 
-}
 
 function operations({numbers}){
+    let searchPrimerOrden = numbers.includes('^') == true? numbers.indexOf('^') : numbers.includes('') == true? numbers.indexOf(''): false
+    if(searchPrimerOrden !== false){
+        let peticion = ordenOperation(numbers,searchPrimerOrden)
+        return peticion
+    }
     let searchSegundoOrden = numbers.includes('*') == true? numbers.indexOf('*') : numbers.includes('/') == true? numbers.indexOf('/'): false
     if(searchSegundoOrden !== false){
        let peticion = ordenOperation(numbers,searchSegundoOrden)
@@ -59,7 +64,7 @@ function operations({numbers}){
 
 function ordenOperation(numbers, origin){
     
-    let simbolos = ['+','-','*','/','(',')']
+    let simbolos = ['+','-','*','/','(',')','^']
     let number1 = ''
     let number2 = ''
     let index1 = ''
@@ -93,33 +98,36 @@ function ordenOperation(numbers, origin){
             }
         
            
-
         switch (numbers[origin]) {
+            case '^':
+                simbolOrigin = '^'
+                
+            break;
             case '*':
                 simbolOrigin = '*'
-                parcialResult = parseInt(number1) * parseInt(number2)
+                parcialResult = parseFloat(number1) * parseFloat(number2)
                 break;
             case '/':
                 simbolOrigin = '/'
-                parcialResult= parseInt(number1) / parseInt(number2)
+                parcialResult= parseFloat(number1) / parseFloat(number2)
                 break;
             case '+':
                 simbolOrigin = '+'
-                parcialResult= parseInt(number1) + parseInt(number2)
+                parcialResult= parseFloat(number1) + parseFloat(number2)
                 
                 break;
             case '-':
                 simbolOrigin = '-'
-                parcialResult =  parseInt(number1) - parseInt(number2)
+                parcialResult =  parseFloat(number1) - parseFloat(number2)
                 break;
             default:
+                finalResult = 'syntax error'
                 break;
         }
          parcialResult.toString().split('').forEach(e=> finalResult.push(e))
         
         return {finalResult,index1,index2,simbolOrigin}
 }
-
 
 
 
@@ -138,5 +146,9 @@ function parentesis(ecc){
     else{return {parentesis1}}
 }
 
+console.log(5^2);
 
-console.log((cerebro('(3+10*2)')))
+//No completado las potencias y raices
+console.log((cerebro('(3+10*2)*1+(5+5/2)')))
+
+console.timeEnd('calculadora')
