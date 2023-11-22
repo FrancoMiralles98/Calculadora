@@ -1,62 +1,36 @@
-function ordenOperation(numbers, origin){
-    
-    let simbolos = ['+','-','*','/','(',')']
-    let number1 = ''
-    let number2 = ''
-    let index1 = ''
-    let index2= ''
-    let parcialResult = 0
-    let finalResult = []
-    let simbolOrigin = ''
-    
-        for (let index = 1; index < Infinity; index++) {
-            if(numbers[origin-index] !== undefined && simbolos.includes(numbers[origin-index]) == false){
-                number1 += numbers[origin-index]}
+let ecc = '(2+1(3*1))'
 
 
-            if(numbers[origin-index] == undefined || simbolos.includes(numbers[origin-index]) == true){
-                index1= number1.length
-                number1 = number1.length >= 0? number1.split('').reverse().join(''): number1
-                break;
-            }
-        }
+function buscar(array){
 
+    let result = hola(array.split(''))
 
-        for (let index = 1; index < Infinity; index++) {
-            if(numbers[origin+index] !== undefined && simbolos.includes(numbers[origin+index]) == false){
-                number2 += numbers[origin+index]}
-                
-                if(numbers[origin+index] == undefined || simbolos.includes(numbers[origin+index]) == true){
-                    index2 =number2.length
-                    break;
-                }
-            }
-        
-       
-        switch (numbers[origin]) {
-            case '*':
-                simbolOrigin = '*'
-                parcialResult = parseInt(number1) * parseInt(number2)
-                break;
-            case '/':
-                simbolOrigin = '/'
-                parcialResult= parseInt(number1) / parseInt(number2)
-                break;
-            case '+':
-                simbolOrigin = '+'
-                parcialResult= parseInt(number1) + parseInt(number2)
-                
-                break;
-            case '-':
-                simbolOrigin = '-'
-                parcialResult =  parseInt(number1) - parseInt(number2)
-                break;
-            default:
-                break;
-        }
-         parcialResult.toString().split('').forEach(e=> finalResult.push(e))
-        
-        return {finalResult,index1,index2,simbolOrigin}
+   let equation =  {numbers:array.slice(result.parentesis1+1,result.parentesis2),parentesis1:result.parentesis1,parentesis2:result.parentesis2}
+    console.log(equation);
 }
 
-console.log(ordenOperation('3+10*2+1',4))
+
+
+function hola (array){
+    for (let index = 0,start= 0; index < Infinity; index++) {
+            if(index == 0){
+            let find = array.indexOf('(')
+                start = find
+                continue;
+        }
+            let find = array.indexOf('(',start+1)
+            if(find !== -1) start = find
+        if(find == -1){
+             let findBrother = array.indexOf(')',start)
+    
+             let findSister = array.lastIndexOf('(',findBrother)
+    
+            return {parentesis1: findSister,parentesis2:findBrother}
+        }
+    }
+
+
+    
+    
+    }
+console.log(buscar('(2+1(3*1+(2+2)))'));

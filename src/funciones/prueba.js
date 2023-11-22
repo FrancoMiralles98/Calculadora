@@ -3,7 +3,7 @@ console.time('calculadora')
 
 const cerebro = (ecc) =>{
     let equation = ecc.split('')
-for (let index = 0; index < Infinity; index++) {
+for (let index = 0; index < 1; index++) {
 
     let peticion =  parentesis(equation)
 
@@ -131,12 +131,20 @@ function ordenOperation(numbers, origin){
 
 
 
+
 function parentesis(ecc){
     let parentesis1 = ecc.indexOf('(')
     let parentesis2 = ecc.indexOf(')')
-
+    let numbers = ''
     if(parentesis1>-1 && parentesis2>-1){
-    let numbers = ecc.slice(parentesis1+1,parentesis2)
+            if(ecc.indexOf('(', parentesis1+1)> -1){
+                let parameters = otherParentesis(ecc)
+                numbers = ecc.slice(parameters.parentesis1+1,parameters.parentesis2)
+                parentesis1 = parameters.parentesis1
+                parentesis2 = parameters.parentesis2
+            }
+    else{numbers = ecc.slice(parentesis1+1,parentesis2)}
+    
         if(/[+ - * /]/.test(numbers.join('')) ==  true){
           return {numbers,parentesis1,parentesis2}}
             else{
@@ -144,11 +152,33 @@ function parentesis(ecc){
                     }
 }
     else{return {parentesis1}}
+
+
 }
 
-console.log(5^2);
+function otherParentesis (array){
+    for (let index = 0,start= 0; index < Infinity; index++) {
+        if(index == 0){
+        let find = array.indexOf('(')
+            start = find
+            continue;
+    }
+        let find = array.indexOf('(',start+1)
+        if(find !== -1) start = find
+    if(find == -1){
+         let findBrother = array.indexOf(')',start)
+
+         let findSister = array.lastIndexOf('(',findBrother)
+
+        return {parentesis1: findSister,parentesis2:findBrother}
+    }
+}
+}
+
+
+
 
 //No completado las potencias y raices
-console.log((cerebro('(3+10*2)*1+(5+5/2)')))
+console.log((cerebro('(2+(1+3))')))
 
 console.timeEnd('calculadora')
