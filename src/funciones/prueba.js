@@ -1,10 +1,20 @@
 console.time('calculadora')
 
-
 const cerebro = (ecc) =>{
-    let equation = ecc.split('')
-for (let index = 0; index < 1; index++) {
+    let equation = []
 
+    //validaciones
+    ecc.split('').map(e=>{if(e !== ' ') equation.push(e)})
+    for (let index = 0; index < equation.length; index++) {
+        if(equation[index] == '÷') equation.splice(index,1,'/')
+        if(equation[index] == '×') equation.splice(index,1,'*')
+        if(equation[index] == 'x') equation.splice(index,1,'*')
+        if(/[1234567890]/.test(equation[index]) && equation[index+1] == '(') equation.splice(index+1,0,'*')
+    
+    }
+
+for (let index = 0; index < Infinity; index++) {
+    
     let peticion =  parentesis(equation)
 
     if( peticion.numbers && typeof peticion.numbers == 'string'){
@@ -13,7 +23,8 @@ for (let index = 0; index < 1; index++) {
         continue;
     }
 
-    if(/[+ - * /]/.test(equation) == false){
+    
+    if(/[-+*/]/.test(equation) == false){
         
         return parseFloat(equation.join(''))
     }
@@ -21,6 +32,7 @@ for (let index = 0; index < 1; index++) {
 
 
     if(peticion.parentesis1 !== -1){
+        
         let result = operations(peticion)
         
         let sizeSplice = result.index1 + result.index2 +1
@@ -145,7 +157,7 @@ function parentesis(ecc){
             }
     else{numbers = ecc.slice(parentesis1+1,parentesis2)}
     
-        if(/[+ - * /]/.test(numbers.join('')) ==  true){
+        if(/[-+*/]/.test(numbers.join('')) ==  true){
           return {numbers,parentesis1,parentesis2}}
             else{
                 return {numbers: numbers.join(''),parentesis1: -1}
@@ -177,8 +189,9 @@ function otherParentesis (array){
 
 
 
+//
 
 //No completado las potencias y raices
-console.log((cerebro('(2+(1+3))')))
+console.log((cerebro('10-5')))
 
 console.timeEnd('calculadora')
