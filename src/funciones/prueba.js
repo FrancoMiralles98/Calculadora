@@ -13,11 +13,12 @@ const cerebro = (ecc) =>{
         if(/[1234567890]/.test(equation[index]) && equation[index+1] == '(') equation.splice(index+1,0,'*')
     
     }
-
-    negative(equation)
+    //ultimo chequeo si hay numeros negativos
+    equation = negative(equation)
     
-
-for (let index = 0; index < Infinity; index++) {
+    
+//comienzo del loop para realizacion del calculo
+for (let index = 0; index < 2; index++) {
     
     let peticion =  parentesis(equation)
 
@@ -29,7 +30,7 @@ for (let index = 0; index < Infinity; index++) {
     }
 
     //Envio del resultado de la cuenta
-    if(/[-+*/]/.test(equation) == false){
+    if(/[-+*/]/.test(equation) == false || equation.length == 1){
         
             if(equation.join('') == 'NaN') return 'syntax error'
         return parseFloat(equation.join(''))
@@ -44,7 +45,6 @@ for (let index = 0; index < Infinity; index++) {
         let sizeSplice = result.index1 + result.index2 +1
         
         let searchSecondOrden = equation.indexOf(`${result.simbolOrigin}`,peticion.parentesis1)
-        
         equation.splice(searchSecondOrden - result.index1, sizeSplice , result.finalResult)
         equation = equation.flat()
         
@@ -58,12 +58,14 @@ for (let index = 0; index < Infinity; index++) {
         let searchSecondOrden = equation.indexOf(`${result.simbolOrigin}`)
         equation.splice(searchSecondOrden- result.index1,sizeSplice,result.finalResult)
         equation = equation.flat()
+        console.log(equation);
         
     }}
 }
 
 //Enviar los tipo de operaciones e indices a la funcion
 function operations({numbers}){
+    
     let searchPrimerOrden = numbers.includes('^') == true? numbers.indexOf('^') : numbers.includes('') == true? numbers.indexOf(''): false
     if(searchPrimerOrden !== false){
         
@@ -86,7 +88,7 @@ function operations({numbers}){
 
 //Realizacion de la operacion
 function ordenOperation(numbers, origin){
-    
+
     let simbolos = ['+','-','*','/','(',')','^']
     let number1 = ''
     let number2 = ''
@@ -104,9 +106,15 @@ function ordenOperation(numbers, origin){
 
             if(numbers[origin-index] == undefined || simbolos.includes(numbers[origin-index]) == true){
                 index1= number1.length
-                number1 = number1.length >= 0? number1.split('').reverse().join(''): number1
+                
+                if(number1.length > 0 && number1.split('').indexOf('-')> -1){
+                    index1 = 1
+                    break;
+                }
+                else{number1 = number1.length >= 0? number1.split('').reverse().join(''): number1}
                 break;
             }
+            
         }
 
         // ciclo number2
@@ -120,6 +128,7 @@ function ordenOperation(numbers, origin){
                 }
             }
         
+
         //Realizacion de los operaciones 
         switch (numbers[origin]) {
             case '^':
@@ -147,7 +156,8 @@ function ordenOperation(numbers, origin){
                 finalResult = 'syntax error'
                 break;
         }
-         parcialResult.toString().split('').forEach(e=> finalResult.push(e))
+        if(parcialResult.toString().split('').indexOf('-') > -1){finalResult.push(parcialResult.toString())}
+         else{parcialResult.toString().split('').forEach(e=> finalResult.push(e))}
         
         return {finalResult,index1,index2,simbolOrigin}
 }
@@ -203,11 +213,28 @@ function otherParentesis (array){
     }
 }
 }
-
+// chequeo de negativos
 function negative(eccuacion){
-    
+    let result = []
+    let counter = 0
+    let negativenumber = '-'
+    eccuacion.map((e,i)=>{
+        if(counter > 0 && /[1234567890]/.test(e) == true){
+            negativenumber += e
+            return
+        }
+        if(counter > 0 && /[1234567890]/.test(e) == false){
+            result.push(negativenumber)
+            counter = 0
 
-
+        }
+        if(e !== '-') {return result.push(e)}
+            else if(/[1234567890]/.test(eccuacion[i-1]) == false){
+                counter++
+            }
+            else{result.push(e)}
+    })
+    return result
 }
 
 
@@ -215,6 +242,6 @@ function negative(eccuacion){
 //
 
 //No completado las potencias y raices
-console.log((cerebro('')))
+console.log((cerebro('1-2')))
 
 console.timeEnd('calculadora')
