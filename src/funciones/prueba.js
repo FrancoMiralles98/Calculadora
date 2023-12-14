@@ -1,3 +1,6 @@
+import funcionesTrigonometricas from "./funcionesTrigonometricas.js"
+
+
 console.time('calculadora')
 
 const cerebro = (ecc) =>{
@@ -13,13 +16,17 @@ const cerebro = (ecc) =>{
         if(/[1234567890]/.test(equation[index]) && equation[index+1] == '(') equation.splice(index+1,0,'*')
     
     }
-    //ultimo chequeo si hay numeros negativos
+    //ultimos chequeos
+    //si hay numeros negativos
     equation = negative(equation)
     
+    //funciones trigonometricas
+    funcionesTrigonometricas(equation)
     
 //comienzo del loop para realizacion del calculo
-for (let index = 0; index < 2; index++) {
+for (let index = 0; index < Infinity; index++) {
     
+    //chequeo de parentesis
     let peticion =  parentesis(equation)
 
     // Eliminacion de parentesis 
@@ -58,7 +65,7 @@ for (let index = 0; index < 2; index++) {
         let searchSecondOrden = equation.indexOf(`${result.simbolOrigin}`)
         equation.splice(searchSecondOrden- result.index1,sizeSplice,result.finalResult)
         equation = equation.flat()
-        console.log(equation);
+        
         
     }}
 }
@@ -156,7 +163,7 @@ function ordenOperation(numbers, origin){
                 finalResult = 'syntax error'
                 break;
         }
-        if(parcialResult.toString().split('').indexOf('-') > -1){finalResult.push(parcialResult.toString())}
+        if(parcialResult.toFixed(2).toString().split('').indexOf('-') > -1){finalResult.push(parcialResult.toString())}
          else{parcialResult.toString().split('').forEach(e=> finalResult.push(e))}
         
         return {finalResult,index1,index2,simbolOrigin}
@@ -236,12 +243,9 @@ function negative(eccuacion){
     })
     return result
 }
-
-
-
 //
 
 //No completado las potencias y raices
-console.log((cerebro('1-2')))
+console.log((cerebro('1(3)')))
 
 console.timeEnd('calculadora')
