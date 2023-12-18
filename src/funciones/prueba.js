@@ -21,7 +21,7 @@ const cerebro = (ecc) =>{
     equation = negative(equation)
     
 //comienzo del loop para realizacion del calculo
-for (let index = 0; index < 15; index++) {
+for (let index = 0; index < 1; index++) {
     
     
     //chequeo de parentesis
@@ -32,10 +32,8 @@ for (let index = 0; index < 15; index++) {
 
     // Eliminacion de parentesis 
     if( peticion.numbers && typeof peticion.numbers == 'string'){
-        console.log(peticion);
         equation.splice(equation.indexOf('('),1)
         equation.splice(equation.indexOf(')'),1)
-        console.log(equation);
         continue;
     }
 
@@ -57,7 +55,7 @@ for (let index = 0; index < 15; index++) {
 
     //Realizacion de la cuenta con parentesis
     if(peticion.parentesis1 !== -1){
-        
+        console.log(peticion);
         let result = operations(peticion)
         
         let sizeSplice = result.index1 + result.index2 +1
@@ -187,16 +185,19 @@ function parentesis(ecc){
     let parentesis1 = ecc.indexOf('(')
     let parentesis2 = ecc.indexOf(')')
     let numbers = ''
+    
     if(parentesis1>-1 && parentesis2>-1){
             if(ecc.indexOf('(', parentesis1+1)> -1){
                 let parameters = otherParentesis(ecc)
                 numbers = ecc.slice(parameters.parentesis1+1,parameters.parentesis2)
+                
                 parentesis1 = parameters.parentesis1
                 parentesis2 = parameters.parentesis2
 
             }
     else{numbers = ecc.slice(parentesis1+1,parentesis2)}
     
+    console.log(numbers);
         if(/[-+*/]/.test(numbers.join('')) ==  true){
            
           return {numbers,parentesis1,parentesis2}}
@@ -257,7 +258,10 @@ function negative(eccuacion){
 }
 //
 
-//No completado las potencias y raices
+//Arreglar el tema de la funcion parentesis, y otherParentesis
+//Terminar las funciones trigonometricas
+//Documentar lo mas posible los pasos
+//Pensar las Raices y las potencias
 console.log((cerebro('2*(6+3)+(40+1)')))
 
 console.timeEnd('calculadora')
