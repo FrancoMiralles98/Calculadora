@@ -19,7 +19,7 @@ const cerebro = (ecc) =>{
     //ultimos chequeos
     //si hay numeros negativos
     equation = negative(equation)
-    
+
 //comienzo del loop para realizacion del calculo
 for (let index = 0; index < 4; index++) {
     
@@ -77,6 +77,7 @@ for (let index = 0; index < 4; index++) {
         equation = equation.flat();
         
     }}
+    
 }
 
 //Enviar los tipo de operaciones e indices a la funcion
@@ -246,11 +247,12 @@ function negative(eccuacion){
             }
             else{result.push(e)}
     })
+    
     return result
 }
 //
 
-//Arreglar el tema de la funcion parentesis, y otherParentesis
+//Arreglar negativos
 //Terminar las funciones trigonometricas
 //Documentar lo mas posible los pasos
 //Pensar las Raices y las potencias
