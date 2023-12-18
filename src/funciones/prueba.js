@@ -21,7 +21,7 @@ const cerebro = (ecc) =>{
     equation = negative(equation)
     
 //comienzo del loop para realizacion del calculo
-for (let index = 0; index < 7; index++) {
+for (let index = 0; index < 4; index++) {
     
     //chequeo de parentesis
     let peticion =  parentesis(equation)
@@ -174,7 +174,8 @@ export function ordenOperation(numbers, origin){
         }
         if(parcialResult.toFixed(2).toString().split('').indexOf('-') > -1){finalResult.push(parcialResult.toString())}
          else{parcialResult.toString().split('').forEach(e=> finalResult.push(e))}
-    
+        
+         
         return {finalResult,index1,index2,simbolOrigin}
 }
 
