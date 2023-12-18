@@ -20,21 +20,32 @@ const cerebro = (ecc) =>{
     //si hay numeros negativos
     equation = negative(equation)
     
-    //funciones trigonometricas
-    funcionesTrigonometricas(equation)
-    
 //comienzo del loop para realizacion del calculo
-for (let index = 0; index < Infinity; index++) {
+for (let index = 0; index < 15; index++) {
+    
     
     //chequeo de parentesis
     let peticion =  parentesis(equation)
 
+
+    let TrigonometrialastParentesis = 0
+
     // Eliminacion de parentesis 
     if( peticion.numbers && typeof peticion.numbers == 'string'){
+        console.log(peticion);
         equation.splice(equation.indexOf('('),1)
         equation.splice(equation.indexOf(')'),1)
+        console.log(equation);
         continue;
     }
+
+    //funciones trigonometricas
+    /*let trinity = equation.join('').indexOf('sin')>-1 ? 'sin': equation.join('').indexOf('cos')>-1 ? 'cos': equation.join('').indexOf('tan')>-1 ?'tan': null
+   
+    if(equation.join('').indexOf(trinity)>-1 && equation[equation.join('').indexOf(trinity)+3] !== '('){
+         equation =  funcionesTrigonometricas(equation,equation.join('').indexOf(trinity)+3,trinity, )
+    
+    }*/
 
     //Envio del resultado de la cuenta
     if(/[-+*/]/.test(equation) == false || equation.length == 1){
@@ -54,7 +65,7 @@ for (let index = 0; index < Infinity; index++) {
         let searchSecondOrden = equation.indexOf(`${result.simbolOrigin}`,peticion.parentesis1)
         equation.splice(searchSecondOrden - result.index1, sizeSplice , result.finalResult)
         equation = equation.flat()
-        
+        console.log(equation);
         continue;
     }
     
@@ -71,7 +82,7 @@ for (let index = 0; index < Infinity; index++) {
 }
 
 //Enviar los tipo de operaciones e indices a la funcion
-function operations({numbers}){
+ export function operations({numbers}){
     
     let searchPrimerOrden = numbers.includes('^') == true? numbers.indexOf('^') : numbers.includes('') == true? numbers.indexOf(''): false
     if(searchPrimerOrden !== false){
@@ -94,7 +105,7 @@ function operations({numbers}){
 }
 
 //Realizacion de la operacion
-function ordenOperation(numbers, origin){
+export function ordenOperation(numbers, origin){
 
     let simbolos = ['+','-','*','/','(',')','^']
     let number1 = ''
@@ -203,6 +214,7 @@ function parentesis(ecc){
 
 //Chequeo de si hay mas parentesis dentro del parentesis
 function otherParentesis (array){
+    
     for (let index = 0,start= 0; index < Infinity; index++) {
         if(index == 0){
         let find = array.indexOf('(')
@@ -246,6 +258,6 @@ function negative(eccuacion){
 //
 
 //No completado las potencias y raices
-console.log((cerebro('1(3)')))
+console.log((cerebro('2*(6+3)+(40+1)')))
 
 console.timeEnd('calculadora')
