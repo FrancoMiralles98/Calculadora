@@ -7,35 +7,22 @@
     for (let index = numberIndex; index < equation.length; index++) {
         if(/[0123456789]/.test(equation[index]) == true){
             number += equation[index]}
-        else{
-            
-            break;
-        }
+        else{ break;}}
 
-    }
         switch (trinity) {
             case 'sin':
                 result = Math.sin(parseFloat(number)).toFixed(2)
                 break;
-            
             case 'tan':
             result = Math.tan(parseFloat(number)).toFixed(2)
                 break;
-
             case 'cos':
             result = Math.cos(parseFloat(number)).toFixed(2)
                 break;
-        
             default:
-                break;
-        }
-        //console.log('equation',equation,'number',number,'result',result,'lastIndex',lastIndex);
+                break;}
         equation.splice(numberIndex-3,number.length+3,`${result}`)
 
         return equation
-        
-    
 }
-
-
 export default funcionesTrigonometricas
