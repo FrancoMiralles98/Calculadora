@@ -2,6 +2,7 @@
 
  let funcionesTrigonometricas = (equation,numberIndex,trinity)=>{
     let number = ''
+    let ifnegative = '-'
     let result = 0
     
     for (let index = numberIndex; index < equation.length; index++) {
@@ -22,7 +23,8 @@
             default:
                 break;}
         equation.splice(numberIndex-3,number.length+3,`${result}`)
-
+        
+        console.log(equation);
         return equation
 }
 export default funcionesTrigonometricas

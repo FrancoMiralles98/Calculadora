@@ -15,14 +15,13 @@ const cerebro = (ecc) =>{
         if(equation[index] == '÷') equation.splice(index,1,'/')
         if(equation[index] == '×' || equation[index] == 'x' ) equation.splice(index,1,'*')
         if(/[1234567890]/.test(equation[index]) && equation[index+1] == '(') equation.splice(index+1,0,'*')
-    
     }
     //ultimos chequeos
     //si hay numeros negativos
     equation = negative(equation)
 
 //comienzo del loop para realizacion del calculo
-for (let index = 0; index < 10; index++) {
+for (let index = 0; index < Infinity; index++) {
     
     //chequeo de parentesis
     let peticion =  parentesis(equation)
@@ -39,12 +38,12 @@ for (let index = 0; index < 10; index++) {
     }
     
     //funciones trigonometricas
-    /*let trinity = equation.join('').indexOf('sin')>-1 ? 'sin': equation.join('').indexOf('cos')>-1 ? 'cos': equation.join('').indexOf('tan')>-1 ?'tan': null
+    let trinity = equation.join('').indexOf('sin')>-1 ? 'sin': equation.join('').indexOf('cos')>-1 ? 'cos': equation.join('').indexOf('tan')>-1 ?'tan': null
    
     if(equation.join('').indexOf(trinity)>-1 && equation[equation.join('').indexOf(trinity)+3] !== '('){
          equation =  funcionesTrigonometricas(equation,equation.join('').indexOf(trinity)+3,trinity, )
     
-    }*/
+    }
 
     //Envio del resultado de la cuenta
     if(equation.length == 1 || equation.some(e=> simbolos.includes(e)) == false ){
@@ -92,7 +91,7 @@ for (let index = 0; index < 10; index++) {
        let peticion = ordenOperation(numbers,searchSegundoOrden)
        return peticion
     }
-    let searchTercerOrden = numbers.includes('+') ==true?numbers.indexOf('+') : numbers.includes('-') == true? numbers.indexOf('-') : false
+    let searchTercerOrden = numbers.includes('-') ==true?numbers.indexOf('-') : numbers.includes('+') == true? numbers.indexOf('+') : false
     if(searchTercerOrden !== false){
         
         let peticion = ordenOperation(numbers,searchTercerOrden)
@@ -102,6 +101,7 @@ for (let index = 0; index < 10; index++) {
 
 //Realizacion de la operacion
 export function ordenOperation(numbers, origin){
+
     let simbolos = ['+','-','*','/','(',')','^']
     let number1 = ''
     let number2 = ''
@@ -127,9 +127,7 @@ export function ordenOperation(numbers, origin){
                 }
                 else{number1 = number1.length >= 0? number1.split('').reverse().join(''): number1}
                 break;
-            }
-            
-        }
+            }}
 
         // ciclo para escribir el number2
         for (let index = 1; index < Infinity; index++) {
@@ -142,7 +140,6 @@ export function ordenOperation(numbers, origin){
                 }
             }
         
-
         //Realizacion de los operaciones segun el "origin", el tipo de simbolo que tiene
         switch (numbers[origin]) {
             case '^':
@@ -174,7 +171,6 @@ export function ordenOperation(numbers, origin){
         if(parcialResult.toFixed(2).toString().split('').indexOf('-') > -1){finalResult.push(parcialResult.toString())}
          else{parcialResult.toString().split('').forEach(e=> finalResult.push(e))}
         
-         
         return {finalResult,index1,index2,simbolOrigin}
 }
 
@@ -256,9 +252,11 @@ function negative(eccuacion){
     return result
 }
 
-//Documentar lo mas posible los pasos
+
 //Terminar las funciones trigonometricas
 //Pensar las Raices y las potencias
-console.log((cerebro('2+(5-2*(10*1))')))
+//-2+3*32+(4/3-22+55)/(12+21)-1
+console.log((cerebro('sin(3+1)')))
 
 console.timeEnd('calculadora')
+
