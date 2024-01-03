@@ -21,7 +21,7 @@ const cerebro = (ecc) =>{
     equation = negative(equation)
 
 //comienzo del loop para realizacion del calculo
-for (let index = 0; index < Infinity; index++) {
+for (let index = 0; index < 5; index++) {
     
     //chequeo de parentesis
     let peticion =  parentesis(equation)
@@ -34,16 +34,20 @@ for (let index = 0; index < Infinity; index++) {
         if(/[-+/*]/.test(peticion.numbers) == false || peticion.numbers.length == 1){
         equation.splice(peticion.parentesis1,1)
         equation.splice(peticion.parentesis2-1,1)
-       continue;}
+        continue;
+       }
     }
     
     //funciones trigonometricas
-    let trinity = equation.join('').indexOf('sin')>-1 ? 'sin': equation.join('').indexOf('cos')>-1 ? 'cos': equation.join('').indexOf('tan')>-1 ?'tan': null
-   
-    if(equation.join('').indexOf(trinity)>-1 && equation[equation.join('').indexOf(trinity)+3] !== '('){
-         equation =  funcionesTrigonometricas(equation,equation.join('').indexOf(trinity)+3,trinity, )
+    let trinity = equation.join('').indexOf('sin')>-1 ? 'sin': equation.join('').indexOf('cos')>-1 ? 'cos': equation.join('').indexOf('tan')>-1 ?'tan': -1
+   if(trinity !== -1){
     
-    }
+    if(equation[equation.join('').indexOf(trinity)+3] !== '('){
+        console.log(equation);
+        console.log(trinity,equation.join('').indexOf(trinity));
+         equation =  funcionesTrigonometricas(equation,equation.join('').indexOf(trinity)+3,trinity)}
+        }
+
 
     //Envio del resultado de la cuenta
     if(equation.length == 1 || equation.some(e=> simbolos.includes(e)) == false ){
@@ -53,8 +57,8 @@ for (let index = 0; index < Infinity; index++) {
     }
     
     //Realizacion de la cuenta con parentesis
+    
     if(peticion.parentesis1 !== -1){
-        
         let result = operations(peticion);
         let sizeSplice = result.index1 + result.index2 +1
         let searchSecondOrden = equation.indexOf(`${result.simbolOrigin}`,peticion.parentesis1)
@@ -65,6 +69,10 @@ for (let index = 0; index < Infinity; index++) {
     }
     
     //realizacion de la cuenta sin parentesis
+    if( trinity !== -1){
+        continue;
+    }
+    else{
     if(peticion.parentesis1 == -1){
         let result = operations({numbers:equation})
         let sizeSplice = result.index1 + result.index2 +1
@@ -72,7 +80,7 @@ for (let index = 0; index < Infinity; index++) {
         equation.splice(searchSecondOrden- result.index1,sizeSplice,result.finalResult)
         equation = equation.flat();
         
-    }}
+    }}}
     
 }
 
@@ -256,7 +264,7 @@ function negative(eccuacion){
 //Terminar las funciones trigonometricas
 //Pensar las Raices y las potencias
 //-2+3*32+(4/3-22+55)/(12+21)-1
-console.log((cerebro('sin(3+1)')))
+console.log((cerebro('sin(3+1)+cos(3)')))
 
 console.timeEnd('calculadora')
 

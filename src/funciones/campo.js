@@ -1,3 +1,4 @@
-let number = '1+41'
-console.log(parseFloat('1+41'));
-console.log(typeof parseFloat(number));
+let number = 'cos(41)+sin(5)'
+number = number.split('')
+console.log(number);
+console.log(number.indexOf('sin'));
