@@ -1,22 +1,16 @@
  export function parentesis (c){
     let searchIndexInicioParentesis = c.indexOf('(')
     if(searchIndexInicioParentesis == -1){
-        return {c,searchIndexInicioParentesis: false}
-    }
+        return {c,searchIndexInicioParentesis: false}}
     else{
         if(searchIndexInicioParentesis > -1){
            let searchIndexInicioParentesis2 = c.indexOf('(',searchIndexInicioParentesis +1)
             if(searchIndexInicioParentesis2 > -1){
                 let result = otherParentesis(c,searchIndexInicioParentesis2)
-                return result
-            }
+                return result}
             else{
                 return {numbers:c.slice(searchIndexInicioParentesis+1,c.indexOf(')')),searchIndexInicioParentesis,searchIndexFinalParentesis:c.indexOf(')')}
-            }
-        }
-    }
-}
-
+            }}}}
 
  function otherParentesis(c){
     let parentesis1 = 0

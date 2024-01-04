@@ -9,14 +9,24 @@ function calculadora (c){
         if(calculo[index] == '(' && /[1234567890]/.test(calculo[index-1]) == true){calculo.splice(index,0,'*')}
     }
 
-    for (let index = 0; index < 1; index++) {
-
+    for (let index = 0; index < 2; index++) {
         let findParentesis = parentesis(calculo)
-
+    
         if(findParentesis.searchIndexInicioParentesis !== false){
-            let peticion = resolucion(findParentesis.numbers) 
-        }
 
+            let peticion = resolucion(findParentesis.numbers,findParentesis.searchIndexFinalParentesis)
+            calculo.splice(findParentesis.searchIndexInicioParentesis+1,findParentesis.searchIndexFinalParentesis-3,peticion.result)
+            calculo = calculo.flat()
+            
+            if(peticion.quitParentesis == false){
+                continue;
+            }
+            if(peticion.quitParentesis == true){
+                
+            }
+        }
+        
+        
     }
 
 
@@ -24,4 +34,4 @@ function calculadora (c){
     
 }
 
-console.log(calculadora('2+(-2+22)'));
+console.log(calculadora('2+(-2*22+3)'));

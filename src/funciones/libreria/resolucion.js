@@ -1,41 +1,74 @@
-export function resolucion (c){
-let arraySymbols = ['-','+','*','/']
-let number1 = ''
-let number2 = ''
-let symbol = 0
-let result = 0
-    for (let index = 0; index <Infinity; index++) {
-        if(index == 0 && c[index] == '-'){number1 += '-';continue;}
-        if(/[1234567890]/.test(c[index]) == true){number1 += c[index];continue;}
-        if(arraySymbols.includes(c[index]) && /[1234567890]/.test(c[index-1]) == true){symbol = index+1 ;break;}
-        if(c[index] == undefined){break;}
+export function resolucion (c,parentesis){
+    let symbol = ['+','-','/','*']
+    if(c.indexOf('*') || c.indexOf('/')){
+        let indexSymbol = 0
+        let result = cuenta(c,indexSymbol= c.indexOf('*')>-1?c.indexOf('*'):c.indexOf('/')>-1?c.indexOf('/'):null)
+        
+        if(parentesis){
+            if([...result.join('').matchAll(/[-/*+]/g)].length > 1){
+                return {result,quitParentesis:false} 
+            }
+            if([...result.join('').matchAll(/[-/*+]/g)][0][0] == '-' && [...result.join('').matchAll(/[-/*+]/g)].length == 1){
+                    if(/[1234567890]/.test(result[result.indexOf('-')-1]) == true){
+                        return {result,quitParentesis:false}}
+                    }
+            if([...result.join('').matchAll(/[-/*+]/g)][0][0] == '-' && [...result.join('').matchAll(/[-/*+]/g)].length == 1){
+                    if(/[1234567890]/.test(result[result.indexOf('-')-1]) == false){
+                        return {result,quitParentesis:true}}
+                    }
+            if([...result.join('').matchAll(/[-/*+]/g)].length > 0){
+                return {result,quitParentesis:false} 
+            }
+            if([...result.join('').matchAll(/[-/*+]/g)].length == 0){
+                return {result,quitParentesis:true} 
+            }    
+        }
+        return result
     }
-    for (let index = symbol; index < Infinity; index++) {
-        console.log(/[1234567890]/.test(c[index]))
-        if(/[1234567890]/.test(c[index])){number2 += c[index];continue;}
-        if(arraySymbols.includes(c[index]) && /[1234567890]/.test(c[index-1]) == true){break;}
-        if(c[index] == undefined){break;}
+}
+
+function cuenta (c,indexSymbol){
+    let numero1 = ''
+    let numero2 = ''
+    let result = 0
+
+    for (let index = 1; index < Infinity; index++) {
+        if(/[1234567890]/.test(c[indexSymbol-index]) == true ){numero1 += c[indexSymbol-index];continue}
+        if(c[indexSymbol-index] == '-' && /[1234567890]/.test(c[indexSymbol - index-1]) == false){
+            numero1 = numero1.split('')
+            numero1.unshift('-')
+            numero1 = numero1.join('')
+        continue;}
+        if(/[1234567890]/.test(c[indexSymbol-index]) == false){break;}
     }
-    console.log('number2',number2);
-switch (c[symbol]) {
+
+    for (let index = indexSymbol+1; index < Infinity; index++) {
+      if(/[1234567890]/.test(c[index])){numero2 += c[index]; continue}
+      if(c[index] == '-' && /[1234567890]/.test(c[index-1]) == false){
+       numero2=  numero2.split('')
+       numero2.unshift('-')
+       numero2 = numero2.join('')
+        ;continue}
+      if(/[1234567890]/.test(c[index]) == false ){break;}
+    }
+
+switch (c[indexSymbol]) {
     case '+':
-        result = parseFloat(number1) + parseFloat(number2)
+        result = parseFloat(numero1) + parseFloat(numero2)
         break;
     case '-':
-        result = parseFloat(number1) - parseFloat(number2)
+        result = parseFloat(numero1) - parseFloat(numero2)
         break;
     case '*':
-        result = parseFloat(number1) * parseFloat(number2)
+        result = parseFloat(numero1) * parseFloat(numero2)
         break;
     case '/':
-        result = parseFloat(number1) / parseFloat(number2)
+        result = parseFloat(numero1) / parseFloat(numero2)
     default:
         result = 'Syntax error'
         break;
 }
-    console.log(result);
-    c.splice(0,number1.length+number2.length+1,result)
-
-    console.log(c);
-
+    c.splice(0,numero1.length+numero2.length+1,result.toString().split('').map(e=>{return e}))
+    c = c.flat()
+    return c
 }
