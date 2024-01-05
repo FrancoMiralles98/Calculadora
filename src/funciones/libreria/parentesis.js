@@ -1,24 +1,20 @@
- export function parentesis (c){
-    let searchIndexInicioParentesis = c.indexOf('(')
-    if(searchIndexInicioParentesis == -1){
-        return {c,searchIndexInicioParentesis: false}}
+export function parentesis (c){
+
+    let find1Index = c.indexOf('(')
+    if(find1Index == -1){return {parentesis:false}}
     else{
-        if(searchIndexInicioParentesis > -1){
-           let searchIndexInicioParentesis2 = c.indexOf('(',searchIndexInicioParentesis +1)
-            if(searchIndexInicioParentesis2 > -1){
-                let result = otherParentesis(c,searchIndexInicioParentesis2)
-                return result}
-            else{
-                return {numbers:c.slice(searchIndexInicioParentesis+1,c.indexOf(')')),searchIndexInicioParentesis,searchIndexFinalParentesis:c.indexOf(')')}
-            }}}}
+        if(c.indexOf('(',find1Index+1) > -1){
+            let result = otherParentesis(c)
+            return result}}
+        return {numbers:c.slice(find1Index+1,c.indexOf(')')),p_inicio: find1Index,p_final: c.indexOf(')'),parentesis:true}
+}
 
- function otherParentesis(c){
-    let parentesis1 = 0
-    let parentesis2 = 0
-
-    for (let index = 0; index < array.length; index++) {
-        if(c[index] == '('){parentesis1 = index}
-        if(c[index] == ')'){parentesis2 = index; break;}
+function otherParentesis (c){
+    let p_inicio = 0
+    let p_final = 0
+    for (let index = 0; index < c.length; index++) {
+        if(c[index] == '('){p_inicio = index}
+        if(c[index] == ')'){p_final = index; break;}
     }
-return {numbers:c.slice(parentesis1+1,parentesis2),parentesis1,parentesis2}
+    return {numbers:c.slice(p_inicio+1,p_final),p_inicio,p_final,parentesis:true}
 }

@@ -1,37 +1,41 @@
-import {parentesis} from './libreria/parentesis.js'
-import { resolucion } from './libreria/resolucion.js'
+import { ordenamiento } from "./libreria/ordenamiento.js";
+import {parentesis} from "./libreria/parentesis.js"
+import { resolucion } from "./libreria/resolucion.js";
 
-function calculadora (c){
-    let calculo = []
-    c.split('').map(e=>{if(e !== ' ')calculo.push(e)})
-
-    for (let index = 0; index < calculo.length ; index++) {
-        if(calculo[index] == '(' && /[1234567890]/.test(calculo[index-1]) == true){calculo.splice(index,0,'*')}
-    }
-
-    for (let index = 0; index < 2; index++) {
-        let findParentesis = parentesis(calculo)
+function cerebro (c){
+    let provisorio = []
+    for (let index = 0; index < c.length; index++) {
+        if(c[index] == ' '){continue;}
+        provisorio.push(c[index])}
     
-        if(findParentesis.searchIndexInicioParentesis !== false){
+    let calculo = ordenamiento(provisorio)
 
-            let peticion = resolucion(findParentesis.numbers,findParentesis.searchIndexFinalParentesis)
-            calculo.splice(findParentesis.searchIndexInicioParentesis+1,findParentesis.searchIndexFinalParentesis-3,peticion.result)
+    for (let index = 0; index < Infinity; index++) {
+     
+        let parentesisCalculo = parentesis(calculo)
+    
+        if(parentesisCalculo.parentesis == true){
+            let result = resolucion(parentesisCalculo.numbers)
+            calculo.splice(parentesisCalculo.p_inicio+1,(parentesisCalculo.p_final-parentesisCalculo.p_inicio-1),result.numbers)
             calculo = calculo.flat()
-            
-            if(peticion.quitParentesis == false){
-                continue;
-            }
-            if(peticion.quitParentesis == true){
-                
-            }
+
+        if(result.numbers.length > 1){continue;}
+        if(result.numbers.length == 1){
+            let lastParentesisIndex = calculo.indexOf(')',parentesisCalculo.p_inicio)
+            calculo.splice(lastParentesisIndex,1)
+            calculo.splice(parentesisCalculo.p_inicio,1)
+            continue;
+        }}
+
+        if(parentesisCalculo.parentesis == false){
+            let result = resolucion(calculo)
         }
-        
-        
+
+        if(calculo.length == 1){
+         return parseFloat(calculo.join(''))
+        } 
     }
-
-
-
-    
 }
 
-console.log(calculadora('2+(-2*22+3)'));
+
+console.log(cerebro('2+(-3*22+1)+22'));
