@@ -34,8 +34,11 @@ function cerebro (c){
         if(calculo.length == 1){
          return parseFloat(calculo.join(''))
         } 
+        console.log(calculo);
     }
+    
 }
 
+//-2+22*3+55+1*(2+(55-3))+100
 
-console.log(cerebro('2+(-3*22+1)+22'));
+console.log(cerebro('3-100.33'));

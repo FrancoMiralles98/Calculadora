@@ -212,7 +212,7 @@ function negative(eccuacion){
 
 //Terminar las funciones trigonometricas
 //Pensar las Raices y las potencias
-//-2+3*32+(4/3-22+55)/(12+21)-1
+//-2+3*32+(4/3-22+55)/(12+210)-1
 console.log((cerebro('sin(3+1)+cos(3)')))
 
 console.timeEnd('calculadora')
