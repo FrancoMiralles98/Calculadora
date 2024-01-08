@@ -9,11 +9,11 @@ function cerebro (c){
         provisorio.push(c[index])}
     
     let calculo = ordenamiento(provisorio)
-        
-    for (let index = 0; index < Infinity; index++) {
-        if(calculo.findIndex(e=> e == NaN || e== undefined)){return 'syntax error'}
-        let parentesisCalculo = parentesis(calculo)
     
+    for (let index = 0; index < Infinity; index++) {
+        if(calculo.findIndex(e=> e == NaN || e== undefined) > -1){return 'syntax error'}
+        let parentesisCalculo = parentesis(calculo)
+        
         if(parentesisCalculo.parentesis == true){
 
             let result = resolucion(parentesisCalculo.numbers)
@@ -39,4 +39,4 @@ function cerebro (c){
 
 //-2+22*3+55+1*(2+(55-3))+100
 
-console.log(cerebro('2+(5)+(-22-)'));
+console.log(cerebro('2+√(15+1)'));
