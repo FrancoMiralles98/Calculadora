@@ -1,5 +1,4 @@
  
-
  let funcionesTrigonometricas = (equation,numberIndex,trinity)=>{
     console.log(equation,numberIndex,trinity);
     let number = ''

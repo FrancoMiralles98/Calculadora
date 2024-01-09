@@ -1,5 +1,5 @@
 import { ordenamiento } from "./libreria/ordenamiento.js";
-import {parentesis} from "./libreria/parentesis.js"
+import { parentesis } from "./libreria/parentesis.js"
 import { resolucion } from "./libreria/resolucion.js";
 
 function cerebro (c){
@@ -7,15 +7,13 @@ function cerebro (c){
     for (let index = 0; index < c.length; index++) {
         if(c[index] == ' '){continue;}
         provisorio.push(c[index])}
-    
     let calculo = ordenamiento(provisorio)
-    
-    for (let index = 0; index < Infinity; index++) {
+
+    for (let index = 0; index < 3; index++) {
         if(calculo.findIndex(e=> e == NaN || e== undefined) > -1){return 'syntax error'}
         let parentesisCalculo = parentesis(calculo)
         
         if(parentesisCalculo.parentesis == true){
-
             let result = resolucion(parentesisCalculo.numbers)
             calculo.splice(parentesisCalculo.p_inicio+1,(parentesisCalculo.p_final-parentesisCalculo.p_inicio-1),result.numbers)
             calculo = calculo.flat()
@@ -37,6 +35,7 @@ function cerebro (c){
     }  
 }
 
-//-2+22*3+55+1*(2+(55-3))+100
+/*^√*/
 
-console.log(cerebro('2+√(15+1)'));
+//funciones trigonometricas?
+console.log(cerebro('sin55'));
