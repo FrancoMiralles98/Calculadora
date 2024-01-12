@@ -1,4 +1,4 @@
+let a = 'costanabcdesinsin'
+let abc = [...a.matchAll(/(cos)|(tan)|(sin)/g)]
 
-let a = 'cos1222'
-
-a = a.split('')
+console.log(abc[1].index);

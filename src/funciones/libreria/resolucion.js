@@ -2,11 +2,12 @@ export function resolucion (c){
     if(c.length == 1){
         let numbers = c;let index= 0;return{numbers,index}}
     
-    let Trigonometricas = c.join('').indexOf('sin') > -1?c.join('').indexOf('sin'): c.join('').indexOf('cos') > -1?c.join('').indexOf('cos'):c.join('').indexOf('tan') > -1?c.join('').indexOf('tan'): -1
-    if(Trigonometricas > -1){let result = operacionTrigonometrica(c,Trigonometricas);return result }    
+    let trigonometrica = c.indexOf('sin') > -1?c.indexOf('sin'): c.indexOf('cos') > -1?c.indexOf('cos'):c.indexOf('tan') > -1?c.join('').indexOf('tan'): -1
 
-    let PrimerGrado = c.indexOf('√') > -1?c.indexOf('√'): c.indexOf('^') > -1?c.indexOf('^'): -1
-    if(PrimerGrado > -1){let result = aritmetica(c,PrimerGrado);return result }
+    if(trigonometrica > -1){let result = operacionTrigonometrica(c,trigonometrica);return result }    
+
+    let primerGrado = c.indexOf('√') > -1?c.indexOf('√'): c.indexOf('^') > -1?c.indexOf('^'): -1
+    if(primerGrado > -1){let result = aritmetica(c,primerGrado);return result }
         
     let segundoGrado = c.indexOf('*') > -1?c.indexOf('*'): c.indexOf('/') > -1?c.indexOf('/'): -1
     if(segundoGrado > -1){let result = aritmetica(c,segundoGrado);return result }
@@ -16,6 +17,7 @@ export function resolucion (c){
 }
 
 function aritmetica (c,index){
+
     let result= 0
     let number1 = parseFloat(c[index-1])
     let number2 = parseFloat(c[index+1])
@@ -51,6 +53,7 @@ function aritmetica (c,index){
 }
 
 function operacionTrigonometrica (c,index){
+    
 let result = 0
 let number = c[index+1]
 let trinity = c.splice(index,1).join('')

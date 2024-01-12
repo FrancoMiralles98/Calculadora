@@ -1,12 +1,12 @@
 export function parentesis (c){
-
     let find1Index = c.indexOf('(')
     if(find1Index == -1){return {parentesis:false}}
     else{
         if(c.indexOf('(',find1Index+1) > -1){
             let result = otherParentesis(c)
             return result}}
-        return {numbers:c.slice(find1Index+1,c.indexOf(')')),p_inicio: find1Index,p_final: c.indexOf(')'),parentesis:true}
+        return {
+            numbers:c.slice(find1Index+1,c.indexOf(')')),p_inicio: find1Index,p_final: c.indexOf(')'),parentesis:true}
 }
 
 function otherParentesis (c){

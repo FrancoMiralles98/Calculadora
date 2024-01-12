@@ -12,24 +12,23 @@ for (let index = 0; index < Infinity; index++) {
         calculo.push(c[index])
         continue;}
     if(c[index] == undefined){break;}
-    }
-    let result = ordenamientoTrigonometrico(calculo,c)
+}
     
+    let result = ordenamientoTrigonometrico(calculo,c)
     return result 
 }
 
 
 function ordenamientoTrigonometrico (calculo,c){
     c = c.join('')
-    let trinity = c.indexOf('sin')>-1?c.indexOf('sin'):c.indexOf('cos')>-1?c.indexOf('cos'):c.indexOf('tan')>-1?c.indexOf('tan'):-1
-    if(trinity == -1){return calculo}
-    else{
-        for (let index = 0,indexTrinity=0; index < 10; index++) {
-            indexTrinity = c.indexOf('sin',index)>-1?c.indexOf('sin',index):c.indexOf('cos',index)>-1?c.indexOf('cos',index):c.indexOf('tan',index)>-1?c.indexOf('tan',index):-1
-            if(indexTrinity == -1){break;}
-            else{
-                let letters = c.slice(indexTrinity,3)
-                calculo.splice(indexTrinity,0,letters)}
-}}
+    let numberSplice = 0
+    let coincidencias = [...c.matchAll(/(cos)|(tan)|(sin)/g)]
+    if(coincidencias.length == 0){return calculo}
+    coincidencias.map((e)=>{
+        let letter = e[0]
+        let index = e.index
+        calculo.splice(index-numberSplice,0,letter)
+        numberSplice += 2
+    })
     return calculo
 }
