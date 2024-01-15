@@ -23,27 +23,21 @@ function aritmetica (c,index){
     let number2 = parseFloat(c[index+1])
 
     switch (c[index]) {
-        case '√':
-                result = Math.sqrt(number2)
+        case '√': result = Math.sqrt(number2)
             break;
-        case '^':
-                result = Math.pow(number1,number2)
+        case '^': result = Math.pow(number1,number2)
             break;
-        case '+':
-                result = number1 + number2
+        case '+': result = number1 + number2
             break;
-        case '-':
-                result = number1 - number2
+        case '-': result = number1 - number2
                 break;
-        case '*':
-                result = number1 * number2
+        case '*': result = number1 * number2
                 break;
-        case '/':
-                result = number1 / number2
+        case '/': result = number1 / number2
                 break;
         default:
             break;
-    } 
+        }
     if(c[index] == '√'){
         c.splice(index,2,result)
         return {numbers:c,index}
@@ -59,19 +53,15 @@ let number = c[index+1]
 let trinity = c.splice(index,1).join('')
 
 switch (trinity) {
-    case 'cos':
-            result = Math.cos(number)
+    case 'cos': result = Math.cos(number)
         break;
-    case 'tan':
-            result = Math.tan(number)
+    case 'tan': result = Math.tan(number)
         break;
-    case 'sin':
-            result = Math.sin(number)
+    case 'sin': result = Math.sin(number)
         break;
     default:
         break;
 }
     c.splice(index,1,result)
-    
     return {numbers:c}
 }

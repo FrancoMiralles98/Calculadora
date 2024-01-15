@@ -11,7 +11,7 @@ function cerebro (c){
     let calculo = ordenamiento(provisorio)
 
     for (let index = 0; index < 5; index++) {
-        if(calculo.findIndex(e=> e == NaN || e== undefined) > -1){return 'syntax error'}
+        if(calculo.findIndex(e=> e == NaN || undefined || Infinity) > -1){return 'syntax error'}
         let parentesisCalculo = parentesis(calculo)
         
         if(parentesisCalculo.parentesis == true){
@@ -40,4 +40,4 @@ function cerebro (c){
 /*^√*/
 
 //funciones trigonometricas?
-console.log(cerebro('tan(1)+cos(20)'));
+console.log(cerebro('2/0'));
