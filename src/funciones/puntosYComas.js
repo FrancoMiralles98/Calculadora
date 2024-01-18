@@ -1,6 +1,7 @@
 import { ordenamiento } from "./libreria/ordenamiento.js";
 import { parentesis } from "./libreria/parentesis.js"
 import { resolucion } from "./libreria/resolucion.js";
+import { puntoComas } from "./libreria/puntoComas.js";
 
 function cerebro (c){
     let provisorio = []
@@ -11,7 +12,7 @@ function cerebro (c){
     let calculo = ordenamiento(provisorio)
 
     for (let index = 0; index < 5; index++) {
-        if(calculo.findIndex(e=> e == NaN || undefined || Infinity) > -1){return 'syntax error'}
+        if(calculo.findIndex(e=> e == NaN || e == undefined || e == Infinity) > -1){return 'syntax error'}
         let parentesisCalculo = parentesis(calculo)
         
         if(parentesisCalculo.parentesis == true){
@@ -27,17 +28,17 @@ function cerebro (c){
             calculo.splice(parentesisCalculo.p_inicio,1)
             continue;
         }}
-
         if(parentesisCalculo.parentesis == false){
             let result = resolucion(calculo)
             calculo = result.numbers
         }
         if(calculo.length == 1){
-         return parseFloat(calculo.join(''))
+         return puntoComas(calculo.join('').toString())
         } 
 }}
 
 /*^√*/
 
 //funciones trigonometricas?
-console.log(cerebro('2/0'));
+console.log(cerebro('500.234*2'));
+

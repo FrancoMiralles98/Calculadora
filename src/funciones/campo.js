@@ -60,7 +60,8 @@ function operacionTrigonometrica (c,index){
     }
 
 
-console.log(resolucion(['cos','40']));
+
+//console.log(resolucion(['cos','40']));
 
 
 
