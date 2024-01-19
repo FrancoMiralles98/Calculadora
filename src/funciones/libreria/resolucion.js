@@ -1,19 +1,13 @@
 export function resolucion (c){
-    if(c.length == 1){
-        let numbers = c;let index= 0;return{numbers,index}}
-    
-    let trigonometrica = c.indexOf('sin') > -1?c.indexOf('sin'): c.indexOf('cos') > -1?c.indexOf('cos'):c.indexOf('tan') > -1?c.join('').indexOf('tan'): -1
+    if(c.length == 1){return{numbers:c,index:0}}
 
-    if(trigonometrica > -1){let result = operacionTrigonometrica(c,trigonometrica);return result }    
-
-    let primerGrado = c.indexOf('√') > -1?c.indexOf('√'): c.indexOf('^') > -1?c.indexOf('^'): -1
-    if(primerGrado > -1){let result = aritmetica(c,primerGrado);return result }
-        
-    let segundoGrado = c.indexOf('*') > -1?c.indexOf('*'): c.indexOf('/') > -1?c.indexOf('/'): -1
-    if(segundoGrado > -1){let result = aritmetica(c,segundoGrado);return result }
-    
-    let tercerGrado = c.indexOf('-') > -1?c.indexOf('-'): c.indexOf('+') > -1?c.indexOf('+'): -1
-    if(tercerGrado > -1){let result = aritmetica(c,tercerGrado);return result }
+    let index
+    let indexSymbols = [...c.join('').matchAll(/\d-\d|[+/√^*%]|(sin)|(cos)|(tan)/g)]
+    if(indexSymbols.findIndex(e=>e[0] =='%')>-1){let result = aritmetica(c,index = c.indexOf('%') );return result}
+    if(indexSymbols.findIndex(e=>e[0] =='cos'| e[0] =='sin'| e[0] =='tan')>-1){let result = operacionTrigonometrica(c,index = (index = c.indexOf('sin')) > -1?index: (index = c.indexOf('cos')) > -1?index: (index = c.indexOf('tan')) > -1?index: -1);return result}
+    if(indexSymbols.findIndex(e=>e[0] =='√'| e[0] =='^') > -1){let result = aritmetica(c, index = (index= c.indexOf('√')) > -1?index : (index= c.indexOf('^')) > -1?index: -1);return result }
+    if(indexSymbols.findIndex(e=>e[0] =='/'| e[0] =='*') > -1){let result = aritmetica(c, index = (index= c.indexOf('*')) > -1?index : (index= c.indexOf('/')) > -1?index: -1);return result }
+    if(indexSymbols.findIndex(e=>e[0].indexOf('-') > -1| e[0] =='+') > -1){let result = aritmetica(c,index = (index= c.indexOf('-')) > -1?index : (index= c.indexOf('+')) > -1?index: -1);return result }
 }
 
 function aritmetica (c,index){
@@ -35,6 +29,8 @@ function aritmetica (c,index){
                 break;
         case '/': result = number1 / number2
                 break;
+        case '%': result = number2 * (number1/100)
+                break;
         default:
             break;
         }
@@ -48,20 +44,20 @@ function aritmetica (c,index){
 
 function operacionTrigonometrica (c,index){
     
-let result = 0
-let number = c[index+1]
-let trinity = c.splice(index,1).join('')
-
-switch (trinity) {
-    case 'cos': result = Math.cos(number)
-        break;
-    case 'tan': result = Math.tan(number)
-        break;
-    case 'sin': result = Math.sin(number)
-        break;
-    default:
-        break;
-}
-    c.splice(index,1,result)
-    return {numbers:c}
-}
+    let result = 0
+    let number = c[index+1]
+    let trinity = c.splice(index,1).join('')
+    
+    switch (trinity) {
+        case 'cos': result = Math.cos(number)
+            break;
+        case 'tan': result = Math.tan(number)
+            break;
+        case 'sin': result = Math.sin(number)
+            break;
+        default:
+            break;
+    }
+        c.splice(index,1,result)
+        return {numbers:c}
+    }
