@@ -37,8 +37,8 @@ function cerebro (c){
         } 
 }}
 
-/*^√*/
+/*^√\*/
 
-//funciones trigonometricas?
+
 console.log(cerebro('cos(tan(55+1))'));
 
