@@ -3,6 +3,7 @@ import { parentesis } from "./libreria/parentesis.js"
 import { resolucion } from "./libreria/resolucion.js";
 import { puntoComas } from "./libreria/puntoComas.js";
 
+console.time('ejecucion')
 function cerebro (c){
     let provisorio = []
     for (let index = 0; index < c.length; index++) {
@@ -29,8 +30,14 @@ function cerebro (c){
             continue;
         }}
         if(parentesisCalculo.parentesis == false){
-            let result = resolucion(calculo)
-            calculo = result.numbers
+            try {
+                let result = resolucion(calculo)
+                calculo = result.numbers
+                
+            } catch (error) {
+               // console.error('error en linea 34', error)
+                return 'syntax error'
+            }
         }
         if(calculo.length == 1){
          return puntoComas(calculo.join('').toString())
@@ -39,6 +46,6 @@ function cerebro (c){
 
 /*^√\*/
 
+console.log(cerebro(''));
 
-console.log(cerebro('cos(tan(55+1))'));
-
+console.timeEnd('ejecucion');

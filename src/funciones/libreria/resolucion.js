@@ -3,11 +3,21 @@ export function resolucion (c){
 
     let index
     let indexSymbols = [...c.join('').matchAll(/\d-\d|[+/√^*%]|(sin)|(cos)|(tan)/g)]
-    if(indexSymbols.findIndex(e=>e[0] =='%')>-1){let result = aritmetica(c,index = c.indexOf('%') );return result}
-    if(indexSymbols.findIndex(e=>e[0] =='cos'| e[0] =='sin'| e[0] =='tan')>-1){let result = operacionTrigonometrica(c,index = (index = c.indexOf('sin')) > -1?index: (index = c.indexOf('cos')) > -1?index: (index = c.indexOf('tan')) > -1?index: -1);return result}
-    if(indexSymbols.findIndex(e=>e[0] =='√'| e[0] =='^') > -1){let result = aritmetica(c, index = (index= c.indexOf('√')) > -1?index : (index= c.indexOf('^')) > -1?index: -1);return result }
-    if(indexSymbols.findIndex(e=>e[0] =='/'| e[0] =='*') > -1){let result = aritmetica(c, index = (index= c.indexOf('*')) > -1?index : (index= c.indexOf('/')) > -1?index: -1);return result }
-    if(indexSymbols.findIndex(e=>e[0].indexOf('-') > -1| e[0] =='+') > -1){let result = aritmetica(c,index = (index= c.indexOf('-')) > -1?index : (index= c.indexOf('+')) > -1?index: -1);return result }
+    if(indexSymbols.findIndex(e=>e[0] =='%')>-1){
+        let result = aritmetica(c,index = c.indexOf('%') );
+        return result}
+    if(indexSymbols.findIndex(e=>e[0] =='cos'| e[0] =='sin'| e[0] =='tan')>-1){
+        let result = operacionTrigonometrica(c,index = (index = c.indexOf('sin')) > -1?index: (index = c.indexOf('cos')) > -1?index: (index = c.indexOf('tan')) > -1?index: -1);
+        return result}
+    if(indexSymbols.findIndex(e=>e[0] =='√'| e[0] =='^') > -1){
+        let result = aritmetica(c, index = (index= c.indexOf('√')) > -1?index : (index= c.indexOf('^')) > -1?index: -1);
+        return result }
+    if(indexSymbols.findIndex(e=>e[0] =='/'| e[0] =='*') > -1){
+        let result = aritmetica(c, index = (index= c.indexOf('*')) > -1?index : (index= c.indexOf('/')) > -1?index: -1);
+        return result }
+    if(indexSymbols.findIndex(e=>e[0].indexOf('-') > -1| e[0] =='+') > -1){
+        let result = aritmetica(c,index = (index= c.indexOf('-')) > -1?index : (index= c.indexOf('+')) > -1?index: -1);
+        return result }
 }
 
 function aritmetica (c,index){
