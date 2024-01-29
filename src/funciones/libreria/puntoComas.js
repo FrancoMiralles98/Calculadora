@@ -1,4 +1,5 @@
-export function puntoComas (c){
+export function puntoComas (c,neg){
+    
     let result = ''
     for (let index = c.length,contador = 0,decimal = c.indexOf('.')>-1?c.indexOf('.'):c.length+1; index > -1 ; index--) {
         if(/\d/.test(c[index]) ==  true && index > decimal){result+= c[index];continue;}
@@ -13,5 +14,5 @@ export function puntoComas (c){
             continue;
         }
 }
-    return result.split('').reverse().join('')
+    return neg = true?`-${result.split('').reverse().join('')}`: result.split('').reverse().join('')
 }

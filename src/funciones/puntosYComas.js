@@ -4,6 +4,7 @@ import { resolucion } from "./libreria/resolucion.js";
 import { puntoComas } from "./libreria/puntoComas.js";
 
 console.time('ejecucion')
+
 function cerebro (c){
     let provisorio = []
     for (let index = 0; index < c.length; index++) {
@@ -13,9 +14,10 @@ function cerebro (c){
     let calculo = ordenamiento(provisorio)
         
     for (let index = 0; index < Infinity; index++) {
-        if(calculo.findIndex(e=> e == NaN || e == undefined || e == Infinity) > -1){return 'syntax error'}
-        let parentesisCalculo = parentesis(calculo)
-        
+         if(calculo.findIndex(e=> e == undefined || e == Infinity) > -1){return 'syntax error'}
+    
+         let parentesisCalculo = parentesis(calculo)
+       
         if(parentesisCalculo.parentesis == true){
             let result = resolucion(parentesisCalculo.numbers)
             
@@ -30,22 +32,24 @@ function cerebro (c){
             continue;
         }}
         if(parentesisCalculo.parentesis == false){
-            try {
                 let result = resolucion(calculo)
                 calculo = result.numbers
-                
-            } catch (error) {
-               // console.error('error en linea 34', error)
-                return 'syntax error'
-            }
         }
-        if(calculo.length == 1){
-         return puntoComas(calculo.join('').toString())
+        
+        if(calculo.length == 1 && isNaN(calculo[0]) == false){
+         return puntoComas(calculo.join('').toString(),calculo[0] < 0?true:false)
         } 
+        else if(calculo.length == 1 && isNaN(calculo[0]) == true){return 'syntax error'}
 }}
 
 /*^√\*/
 
-console.log(cerebro(''));
+try {
+    let result = cerebro('5-3*7')
+    console.log(result); 
+} catch (error) {
+     console.log(error);
+}
 
 console.timeEnd('ejecucion');
+

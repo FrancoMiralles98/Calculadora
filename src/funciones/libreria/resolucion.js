@@ -1,8 +1,9 @@
 export function resolucion (c){
     if(c.length == 1){return{numbers:c,index:0}}
-
+    
     let index
-    let indexSymbols = [...c.join('').matchAll(/\d-\d|[+/√^*%]|(sin)|(cos)|(tan)/g)]
+    let indexSymbols = [...c.join('').matchAll(/\d-\d|\d--\d|[+/√^*%]|(sin)|(cos)|(tan)/g)]
+
     if(indexSymbols.findIndex(e=>e[0] =='%')>-1){
         let result = aritmetica(c,index = c.indexOf('%') );
         return result}
@@ -21,10 +22,11 @@ export function resolucion (c){
 }
 
 function aritmetica (c,index){
-
+    
     let result= 0
     let number1 = parseFloat(c[index-1])
     let number2 = parseFloat(c[index+1])
+    
 
     switch (c[index]) {
         case '√': result = Math.sqrt(number2)
@@ -44,6 +46,7 @@ function aritmetica (c,index){
         default:
             break;
         }
+        
     if(c[index] == '√'){
         c.splice(index,2,result)
         return {numbers:c,index}
