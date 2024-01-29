@@ -13,9 +13,10 @@ function cerebro (c){
 
     let calculo = ordenamiento(provisorio)
         
-    for (let index = 0; index < Infinity; index++) {
-         if(calculo.findIndex(e=> e == undefined || e == Infinity) > -1){return 'syntax error'}
-    
+    for (let index = 0; index < 5; index++) {
+        
+         if([...calculo.join('').matchAll(/(NaN)|(undefined)/g)].length > 0){return 'syntax error'}
+        
          let parentesisCalculo = parentesis(calculo)
        
         if(parentesisCalculo.parentesis == true){
@@ -31,24 +32,26 @@ function cerebro (c){
             calculo.splice(parentesisCalculo.p_inicio,1)
             continue;
         }}
+
         if(parentesisCalculo.parentesis == false){
                 let result = resolucion(calculo)
                 calculo = result.numbers
         }
         
-        if(calculo.length == 1 && isNaN(calculo[0]) == false){
-         return puntoComas(calculo.join('').toString(),calculo[0] < 0?true:false)
-        } 
-        else if(calculo.length == 1 && isNaN(calculo[0]) == true){return 'syntax error'}
+         if(calculo.length == 1){
+            if(calculo[0] == Infinity){return 'Infinity'}
+         return puntoComas(calculo.join('').toString(),calculo[0] < 0?true:false)} 
+
+       
 }}
 
 /*^√\*/
 
 try {
-    let result = cerebro('5-3*7')
+    let result = cerebro('')
     console.log(result); 
 } catch (error) {
-     console.log(error);
+      console.log('syntax error');
 }
 
 console.timeEnd('ejecucion');

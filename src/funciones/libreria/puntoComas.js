@@ -14,5 +14,5 @@ export function puntoComas (c,neg){
             continue;
         }
 }
-    return neg = true?`-${result.split('').reverse().join('')}`: result.split('').reverse().join('')
+    return  neg == true?`-${result.split('').reverse().join('')}`: result.split('').reverse().join('')
 }

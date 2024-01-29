@@ -8,7 +8,7 @@ export function parentesis (c){
         return {
             numbers:c.slice(find1Index+1,c.indexOf(')')),p_inicio: find1Index,p_final: c.indexOf(')'),parentesis:true}
 }
-// 
+
 function otherParentesis (c){
     let p_inicio = 0
     let p_final = 0
