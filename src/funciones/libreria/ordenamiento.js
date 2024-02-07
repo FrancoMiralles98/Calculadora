@@ -3,7 +3,7 @@ export function ordenamiento(c){
     let copy = ''
 for (let index = 0; index < Infinity; index++) {
     if(c[index] == '-' && /[\d)]/.test(c[index-1]) == false){copy += c[index];continue}
-    if(/[\d.]/.test(c[index]) == true){copy += c[index];continue}
+    if(/[\d,]/.test(c[index]) == true){c[index] === ','?copy +='.':copy += c[index];continue}
     if(c[index+1] == undefined && copy.length > 0){calculo.push(copy); copy= ''}
     if(/[-+(/*)√^%]/.test(c[index]) == true){
         if(copy.length > 0){calculo.push(copy);copy = ''}

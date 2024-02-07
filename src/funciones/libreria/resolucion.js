@@ -26,7 +26,6 @@ function aritmetica (c,index){
     let result= 0
     let number1 = parseFloat(c[index-1])
     let number2 = parseFloat(c[index+1])
-    
 
     switch (c[index]) {
         case '√': result = Math.sqrt(number2)

@@ -12,9 +12,9 @@ function cerebro (c){
         provisorio.push(c[index])}
 
     let calculo = ordenamiento(provisorio)
-        
+    
     for (let index = 0; index < 5; index++) {
-        
+         console.log(calculo);
          if([...calculo.join('').matchAll(/(NaN)|(undefined)/g)].length > 0){return 'syntax error'}
         
          let parentesisCalculo = parentesis(calculo)
@@ -40,15 +40,14 @@ function cerebro (c){
         
          if(calculo.length == 1){
             if(calculo[0] == Infinity){return 'Infinity'}
-         return puntoComas(calculo.join('').toString(),calculo[0] < 0?true:false)} 
-
-       
+            console.log(parseFloat(calculo.join('')));
+         return puntoComas(parseFloat(calculo.join('')).toFixed(2).toString(),calculo[0] < 0?true:false)}       
 }}
 
 /*^√\*/
 
 try {
-    let result = cerebro('')
+    let result = cerebro('45+78,21*(78+3)')
     console.log(result); 
 } catch (error) {
       console.log('syntax error');

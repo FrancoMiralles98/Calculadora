@@ -1,4 +1,4 @@
-export function puntoComas (c,neg){
+export function puntoComas (c,negative){
     
     let result = ''
     for (let index = c.length,contador = 0,decimal = c.indexOf('.')>-1?c.indexOf('.'):c.length+1; index > -1 ; index--) {
@@ -14,5 +14,5 @@ export function puntoComas (c,neg){
             continue;
         }
 }
-    return  neg == true?`-${result.split('').reverse().join('')}`: result.split('').reverse().join('')
+    return  negative == true?`-${result.split('').reverse().join('')}`: result.split('').reverse().join('')
 }
